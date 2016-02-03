@@ -1,7 +1,4 @@
-use app::App;
 use graphics::types::Rectangle;
-
-pub struct Nil;
 
 pub struct Point(pub f64, pub f64);
 
@@ -74,8 +71,8 @@ impl LandType {
 }
 
 pub struct Land {
-    pub renInfo: RenderInfo,
-    pub landType: LandType,
+    renInfo: RenderInfo,
+    landType: LandType,
 }
 
 impl Land {
@@ -89,7 +86,7 @@ impl Land {
 }
 
 pub struct PointObj {
-    pub renInfo: RenderInfo,
+    renInfo: RenderInfo,
 }
 
 impl PointObj {
