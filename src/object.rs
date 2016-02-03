@@ -129,20 +129,20 @@ impl <'a> RenderUtils<'a> for Land {
 }
 
 // Render Utils Functions
+macro_rules! expr { ($x:expr) => ($x) }
 
-// TODO: BUG LOGIC
 macro_rules! crash_checker {
-    ($obj1: ident, $obj2: ident) => (
-        ($obj1.offset.0 <= $obj2.offset.0 
+    ($obj1: ident,  $obj2: ident, $axis: tt) => (
+        (expr!($obj1.offset.$axis) <= expr!($obj2.offset.$axis) 
          &&
-         $obj2.offset.0 < $obj1.offset.0 + $obj1.size.0)
+         expr!($obj2.offset.$axis) < expr!($obj1.offset.$axis) + expr!($obj1.size.$axis))
         ||
-        ($obj1.offset.1 <= $obj2.offset.1 
+        (expr!($obj2.offset.$axis) <= expr!($obj1.offset.$axis) 
          &&
-         $obj2.offset.1 < $obj1.offset.1 + $obj1.size.1)
-        )
+         expr!($obj1.offset.$axis) < expr!($obj2.offset.$axis) + expr!($obj2.size.$axis))
+    );
 }
 
 pub fn is_crash(obj1: &RenderInfo, obj2: &RenderInfo) -> bool {
-    crash_checker!(obj1, obj2) || crash_checker!(obj2, obj1)
+    crash_checker!(obj1, obj2, 0) && crash_checker!(obj1, obj2, 1)
 }
