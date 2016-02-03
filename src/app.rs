@@ -15,7 +15,7 @@ impl App {
         let mut offset: f64 = 0.0;
         let tile_num = self.tiles.len();
         if tile_num != 0 {
-            let lastTile = &self.tiles[tile_num - 1].renInfo;
+            let lastTile = &self.tiles[tile_num - 1].get_render_info();
             offset = lastTile.offset.0 + lastTile.size.0;
         }
 
@@ -42,7 +42,7 @@ impl App {
             clear(GREEN, gl);
 
             for tile in tiles {
-                let tile = tile.renInfo.get_rectangle_info();
+                let tile = tile.get_render_info().get_rectangle_info();
                 //let transform = c.transform.trans(x, y).trans(-25.0, -25.0);
                 rectangle(RED, tile, c.transform, gl);
             }
